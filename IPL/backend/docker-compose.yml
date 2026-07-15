@@ -1,0 +1,84 @@
+version: '3.9'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: ipl_postgres
+    environment:
+      POSTGRES_USER: ${DB_USER:-ipl_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-ipl_password}
+      POSTGRES_DB: ipl_predictor
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ipl_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ipl_network
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: ipl_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ipl_network
+
+  # FastAPI Backend
+  backend:
+    build: ./backend
+    container_name: ipl_backend
+    environment:
+      DATABASE_URL: postgresql://ipl_user:ipl_password@postgres:5432/ipl_predictor
+      REDIS_URL: redis://redis:6379/0
+      FASTAPI_HOST: 0.0.0.0
+      FASTAPI_PORT: 8000
+      ENVIRONMENT: production
+      DEBUG: "False"
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - ./backend/mlflow_artifacts:/app/mlflow_artifacts
+      - ./backend/models:/app/models
+    networks:
+      - ipl_network
+
+  # React Frontend (optional - can be served separately)
+  frontend:
+    build: ./frontend
+    container_name: ipl_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_API_URL: http://backend:8000/api
+    depends_on:
+      - backend
+    networks:
+      - ipl_network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  ipl_network:
+    driver: bridge

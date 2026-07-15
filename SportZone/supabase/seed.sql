@@ -1,0 +1,13 @@
+INSERT INTO categories (name, slug, description, image_url, created_at) VALUES
+('Cricket', 'cricket', 'All cricket equipment including bats, balls, and protective gear.', 'https://example.com/images/cricket.jpg', NOW()),
+('Football', 'football', 'Football gear including balls, shoes, and accessories.', 'https://example.com/images/football.jpg', NOW()),
+('Fitness', 'fitness', 'Fitness equipment for workouts and training.', 'https://example.com/images/fitness.jpg', NOW()),
+('Badminton', 'badminton', 'Badminton rackets, shuttlecocks, and accessories.', 'https://example.com/images/badminton.jpg', NOW()),
+('Running', 'running', 'Running shoes and gear for all levels.', 'https://example.com/images/running.jpg', NOW());
+
+INSERT INTO products (name, slug, description, specifications, price, mrp, images, category_id, brand, sku, stock_quantity, is_active, is_featured, created_at, updated_at) VALUES
+('SG Scorer Classic Bat', 'sg-scorer-classic-bat', 'A classic cricket bat for professional players.', '{"Material": "Willow", "Weight": "2.8 lbs"}', 2499, 2999, '{"https://example.com/images/sg-bat-1.jpg", "https://example.com/images/sg-bat-2.jpg"}', 1, 'SG', 'SG-001', 42, TRUE, TRUE, NOW(), NOW()),
+('Nike Strike Football', 'nike-strike-football', 'Durable football for all weather conditions.', '{"Material": "Synthetic", "Size": "5"}', 1299, 1299, '{"https://example.com/images/nike-football-1.jpg", "https://example.com/images/nike-football-2.jpg"}', 2, 'Nike', 'NIKE-001', 30, TRUE, TRUE, NOW(), NOW()),
+('Yonex Nanoray 7000I Racket', 'yonex-nanoray-7000i-racket', 'Lightweight badminton racket for quick swings.', '{"Material": "Graphite", "Weight": "4U"}', 3199, 3800, '{"https://example.com/images/yonex-racket-1.jpg", "https://example.com/images/yonex-racket-2.jpg"}', 4, 'Yonex', 'YONEX-001', 18, TRUE, TRUE, NOW(), NOW()),
+('Nivia 20kg Dumbbell Set', 'nivia-20kg-dumbbell-set', 'Adjustable dumbbell set for home workouts.', '{"Material": "Cast Iron", "Weight": "20kg"}', 1899, 1899, '{"https://example.com/images/nivia-dumbbell-1.jpg", "https://example.com/images/nivia-dumbbell-2.jpg"}', 3, 'Nivia', 'NIVIA-001', 25, TRUE, TRUE, NOW(), NOW()),
+('Asics Gel-Nimbus 25 Shoes', 'asics-gel-nimbus-25-shoes', 'Comfortable running shoes for long distances.', '{"Material": "Mesh", "Size": "10"}', 7499, 8999, '{"https://example.com/images/asics-shoes-1.jpg", "https://example.com/images/asics-shoes-2.jpg"}', 5, 'Asics', 'ASICS-001', 11, TRUE, TRUE, NOW(), NOW());

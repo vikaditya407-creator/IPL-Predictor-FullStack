@@ -1,0 +1,31 @@
+# Local environment variables
+.env
+*.env
+**/.env
+
+# Python caches and environments
+__pycache__/
+*.pyc
+venv/
+.venv/
+**/venv/
+**/env/
+
+# Machine Learning heavy artifacts
+backend/data/
+backend/mlflow_artifacts/
+backend/models/
+**/data/
+**/models/
+*.csv
+*.xlsx
+
+# Node modules anywhere in the project (The Ultimate Fix)
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+build/
+**/build/
+dist/
+**/dist/
