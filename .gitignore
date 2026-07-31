@@ -1,0 +1,39 @@
+# Environment files
+.env
+.env.*
+*.env
+**/.env
+
+# Python caches & virtual environments
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.venv/
+**/venv/
+**/env/
+
+# Node & Next.js build artifacts
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+build/
+**/build/
+dist/
+**/dist/
+
+# Machine Learning artifacts, databases, & binary models
+*.pkl
+*.h5
+*.db
+*.sqlite
+mlflow.db
+mlflow_artifacts/
+**/mlflow_artifacts/
+backend/data/*.csv
+
+# System files
+.DS_Store
+Thumbs.db
