@@ -1,3 +1,4 @@
+import json
 from functools import lru_cache
 from pathlib import Path
 import pickle
@@ -15,6 +16,7 @@ router = APIRouter()
 BASE_DIR = Path(__file__).resolve().parents[2]
 DATA_DIR = BASE_DIR / "data"
 MODEL_DIR = BASE_DIR / "models"
+CONFIG_PATH = BASE_DIR / "config" / "team_stats_config.json"
 MODEL_PATH = MODEL_DIR / "predict_match_random_forest.pkl"
 
 FEATURE_COLUMNS = [
@@ -31,57 +33,23 @@ FEATURE_COLUMNS = [
     "team_b_player_form",
 ]
 
-TEAM_ALIASES = {
-    "MUMBAI INDIANS": "MI",
-    "CHENNAI SUPER KINGS": "CSK",
-    "ROYAL CHALLENGERS BANGALORE": "RCB",
-    "ROYAL CHALLENGERS BENGALURU": "RCB",
-    "KOLKATA KNIGHT RIDERS": "KKR",
-    "SUNRISERS HYDERABAD": "SRH",
-    "DELHI CAPITALS": "DC",
-    "DELHI DAREDEVILS": "DC",
-    "RAJASTHAN ROYALS": "RR",
-    "GUJARAT TITANS": "GT",
-    "LUCKNOW SUPER GIANTS": "LSG",
-    "PUNJAB KINGS": "PBKS",
-    "KINGS XI PUNJAB": "PBKS",
-}
 
-FALLBACK_TEAM_FORM = {
-    "MI": 0.62,
-    "CSK": 0.58,
-    "RCB": 0.55,
-    "KKR": 0.61,
-    "SRH": 0.57,
-    "DC": 0.49,
-    "RR": 0.56,
-    "GT": 0.53,
-    "LSG": 0.51,
-    "PBKS": 0.48,
-}
+def load_team_stats_config() -> dict:
+    """Load team statistics, fallback win rates, and stadium context dynamically from JSON config."""
+    if CONFIG_PATH.exists():
+        try:
+            with open(CONFIG_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            logger.error(f"Failed to load team stats config from {CONFIG_PATH}: {e}")
+    return {}
 
-FALLBACK_STADIUM_CONTEXT = {
-    "WANKHEDE STADIUM": {
-        "avg_score": 178,
-        "chasing_win_rate": 0.57,
-        "pitch_type": "Batting friendly red-soil pitch with good bounce",
-    },
-    "M. CHINNASWAMY STADIUM": {
-        "avg_score": 186,
-        "chasing_win_rate": 0.59,
-        "pitch_type": "High-scoring batting pitch with short boundaries",
-    },
-    "EDEN GARDENS": {
-        "avg_score": 171,
-        "chasing_win_rate": 0.53,
-        "pitch_type": "Balanced pitch with grip for spinners later",
-    },
-    "MA CHIDAMBARAM STADIUM": {
-        "avg_score": 164,
-        "chasing_win_rate": 0.47,
-        "pitch_type": "Slow surface with spin assistance",
-    },
-}
+
+_config_data = load_team_stats_config()
+TEAM_ALIASES = _config_data.get("team_aliases", {})
+FALLBACK_TEAM_FORM = _config_data.get("fallback_team_form", {})
+FALLBACK_STADIUM_CONTEXT = _config_data.get("fallback_stadium_context", {})
+
 
 
 def normalize_name(value: str) -> str:

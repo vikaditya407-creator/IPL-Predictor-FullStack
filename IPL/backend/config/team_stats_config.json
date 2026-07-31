@@ -1,0 +1,51 @@
+{
+  "team_aliases": {
+    "MUMBAI INDIANS": "MI",
+    "CHENNAI SUPER KINGS": "CSK",
+    "ROYAL CHALLENGERS BANGALORE": "RCB",
+    "ROYAL CHALLENGERS BENGALURU": "RCB",
+    "KOLKATA KNIGHT RIDERS": "KKR",
+    "SUNRISERS HYDERABAD": "SRH",
+    "DELHI CAPITALS": "DC",
+    "DELHI DAREDEVILS": "DC",
+    "RAJASTHAN ROYALS": "RR",
+    "GUJARAT TITANS": "GT",
+    "LUCKNOW SUPER GIANTS": "LSG",
+    "PUNJAB KINGS": "PBKS",
+    "KINGS XI PUNJAB": "PBKS"
+  },
+  "fallback_team_form": {
+    "MI": 0.62,
+    "CSK": 0.58,
+    "RCB": 0.55,
+    "KKR": 0.61,
+    "SRH": 0.57,
+    "DC": 0.49,
+    "RR": 0.56,
+    "GT": 0.53,
+    "LSG": 0.51,
+    "PBKS": 0.48
+  },
+  "fallback_stadium_context": {
+    "WANKHEDE STADIUM": {
+      "avg_score": 178,
+      "chasing_win_rate": 0.57,
+      "pitch_type": "Batting friendly red-soil pitch with good bounce"
+    },
+    "M. CHINNASWAMY STADIUM": {
+      "avg_score": 186,
+      "chasing_win_rate": 0.59,
+      "pitch_type": "High-scoring batting pitch with short boundaries"
+    },
+    "EDEN GARDENS": {
+      "avg_score": 171,
+      "chasing_win_rate": 0.53,
+      "pitch_type": "Balanced pitch with grip for spinners later"
+    },
+    "MA CHIDAMBARAM STADIUM": {
+      "avg_score": 164,
+      "chasing_win_rate": 0.47,
+      "pitch_type": "Slow surface with spin assistance"
+    }
+  }
+}
